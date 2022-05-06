@@ -1,22 +1,38 @@
 package input;
 
+import model.DetailValid;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Input {
     public static final String USER_NAME = "^[a-zA-Z]([._-](?![._-])|[\\w]){3,18}[\\w]$";
     public static final String USER_PASS = "^(?=.*[\\d])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+    public static final String CAR_NAME = "^[A-Z]+[\\w]+$";
+    public static final String CAR_COMPANY = "^[A-Z]+[\\w]{2,10}$";
+    public static final String NOT_VALID_USER_NAME = "Bạn cần nhập kí tự đầu tiên là chữ và từ 5 đến 18 kí tự ";
+    public static final String NOT_VALID_USER_PASS = "Bạn cần nhập ít nhất 1 số,kí tự đặc biệt,kí tự viết hoa và từ 8 đến 20 kí tự ";
+    public static final String NOT_VALID_CAR_NAME = "Bạn không được nhập kí tự có dấu,đặc biệt và chữ đầu phải viết hoa ";
 
-    public boolean validate(String regex){
-        return Pattern.compile(USER_NAME).matcher(regex).matches();
+    public static boolean validate(DetailValid detailValid, String string) {
+        Pattern pattern = Pattern.compile(detailValid.getRegex());
+        Matcher matcher = pattern.matcher(string);
+        if (!matcher.matches()) {
+            System.err.println(detailValid.getMessage());
+        }
+        return matcher.matches();
     }
 
     public static void main(String[] args) {
-        Input input = new Input();
-        boolean isValid = input.validate("Thanhtung_nd");
-        System.out.println(isValid);
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        if (validate(new DetailValid(CAR_NAME, NOT_VALID_CAR_NAME), name)){
+            System.out.println("abc");
+        }else System.out.println("aaa");
     }
+
     public static int checkMenu2Op(Scanner scs, int choice) {
         try {
             choice = scs.nextInt();
@@ -30,6 +46,7 @@ public class Input {
         }
         return choice;
     }
+
     public static int checkMenu4Op(Scanner scs, int choice) {
         try {
             choice = scs.nextInt();
@@ -43,6 +60,7 @@ public class Input {
         }
         return choice;
     }
+
     public static int checkMenu7Op(Scanner scs, int choice) {
         try {
             choice = scs.nextInt();
@@ -56,6 +74,7 @@ public class Input {
         }
         return choice;
     }
+
     public static int checkExceptionNumber(String message) {
         int choice = -1;
         Scanner scs = new Scanner(System.in);

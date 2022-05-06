@@ -64,9 +64,9 @@ public class ManageRole {
     }
 
     public void displayRole(int id) {
-        for (int i = 0; i < roles.size(); i++) {
-            if (id == roles.get(i).getIdRole()) {
-                System.out.println(roles.get(i));
+        for (Role role : roles) {
+            if (id == role.getIdRole()) {
+                System.out.println(role);
             }
         }
     }
