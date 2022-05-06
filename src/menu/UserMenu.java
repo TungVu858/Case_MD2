@@ -8,6 +8,7 @@ import manage.ManageUser;
 import model.DetailValid;
 import model.Role;
 import model.User;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -26,19 +27,19 @@ public class UserMenu {
     }
 
     public static void information() {
-        System.out.println("Thông tin tài khoản của bạn : ");
+        System.out.println(Input.ANSI_BLUE + "Thông tin tài khoản của bạn : " + Input.ANSI_RESET);
         System.out.println("id,tên,mật khẩu,status,role");
         System.out.println(ManageUser.currentUser);
     }
 
-    public static void rePass(ManageUser manageUser) throws IOException {
+    public static void changePass(ManageUser manageUser) throws IOException {
         Scanner scc = new Scanner(System.in);
         while (true) {
             System.out.println("Nhập pass mới : ");
             String newPass = scc.nextLine();
             if (Input.validate(new DetailValid(Input.USER_PASS, Input.NOT_VALID_USER_PASS), newPass)) {
                 ManageUser.currentUser.setUserPass(newPass);
-                System.out.println("Bạn đã đổi mật khẩu thành công !!");
+                System.out.println(Input.ANSI_BLUE + "Bạn đã đổi mật khẩu thành công !!" + Input.ANSI_RESET);
                 FileUserCSV.writeToFile(Path.PATH_USER, manageUser.getUserList());
                 break;
             }
@@ -58,11 +59,11 @@ public class UserMenu {
                 String username = scc.nextLine();
                 if (Input.validate(new DetailValid(Input.USER_NAME, Input.NOT_VALID_USER_NAME), username)) {
                     if (manageUser.findByUserName(username) == -1) {
-                        while (true){
+                        while (true) {
                             System.out.println("Nhập vào mật khẩu : ");
                             String pass = scc.nextLine();
                             if (Input.validate(new DetailValid(Input.USER_PASS, Input.NOT_VALID_USER_PASS), pass)) {
-                                while (true){
+                                while (true) {
                                     System.out.println("Nhập lại mật khẩu : ");
                                     String rePass = scc.nextLine();
                                     if (Input.validate(new DetailValid(Input.USER_PASS, Input.NOT_VALID_USER_PASS), rePass)) {
@@ -71,21 +72,21 @@ public class UserMenu {
                                             int idRole = Input.checkExceptionNumber("Nhập vào id Role : ");
                                             Role role = manageRole.findById(idRole);
                                             manageUser.register(new User(id, username, pass, status, role));
-                                            System.out.println("Bạn đã tạo tài khoản thành công!!");
+                                            System.out.println(Input.ANSI_BLUE + "Bạn đã tạo tài khoản thành công!!" + Input.ANSI_RESET);
                                             FileUserCSV.writeToFile(Path.PATH_USER, manageUser.getUserList());
-                                        } else {
-                                            System.out.println("Nhập 2 mật khẩu phải trùng nhau !!");
-                                        }
+                                            break;
+                                        } else
+                                            System.out.println(Input.CHECK_PASS_DUPE);
                                         break;
                                     }
                                 }
                                 break;
                             }
                         }
-                    } else System.out.println("Tài khoản đã tồn tại !!!");
+                    } else System.out.println(Input.CHECK_USER_NAME_DUPE);
                     break;
                 }
             }
-        } else System.out.println("Id tài khoản đã tồn tại !!!");
+        } else System.out.println(Input.CHECK_USER_ID_DUPE);
     }
 }

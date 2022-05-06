@@ -1,16 +1,19 @@
 
 import input.Input;
+import manage.ManageRole;
 import manage.ManageUser;
 import menu.CarMenu;
 import menu.Menu;
 import menu.RoleMenu;
 import menu.UserMenu;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         ManageUser manageUser = new ManageUser();
+        ManageRole manageRole = new ManageRole();
         Scanner scc = new Scanner(System.in);
         Scanner scs = new Scanner(System.in);
         String username;
@@ -27,7 +30,7 @@ public class Main {
                     System.out.println("Nhập mật khẩu : ");
                     pass = scc.nextLine();
                     if (manageUser.login(username, pass) == 1) {
-                        System.out.println("Đăng nhập thành công !!!");
+                        System.out.println(Input.ANSI_BLUE + "Đăng nhập thành công !!!" + Input.ANSI_RESET);
                         System.out.println(manageUser.displayUserName(username));
                         int choice_1 = -1;
                         while (choice_1 != 0) {
@@ -74,7 +77,7 @@ public class Main {
                                     UserMenu.information();
                                     break;
                                 case 3:
-                                   UserMenu.rePass(manageUser);
+                                    UserMenu.changePass(manageUser);
                                     break;
                                 case 4:
                                     int choice_2 = -1;
@@ -86,7 +89,7 @@ public class Main {
                                                 RoleMenu.addRole();
                                                 break;
                                             case 2:
-                                                RoleMenu.deleteRole();
+                                                RoleMenu.deleteRole(manageRole);
                                                 break;
                                         }
                                     }
@@ -96,7 +99,8 @@ public class Main {
                                     break;
                             }
                         }
-                    } else System.out.println("Bạn nhập sai tên đăng nhập hoặc mật khẩu!!");
+                    } else
+                        System.out.println("\u001B[31m" + "Bạn nhập sai tên đăng nhập hoặc mật khẩu!!" + "\u001B[0m");
                     break;
                 case 2:
                     UserMenu.register();

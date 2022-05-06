@@ -6,6 +6,8 @@ public class Car {
     private String companyCar;
     private int priceCar;
     private User user;
+    private static int autoNum = 1;
+
     public Car() {
     }
 

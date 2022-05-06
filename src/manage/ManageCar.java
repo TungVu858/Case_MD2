@@ -27,7 +27,7 @@ public class ManageCar {
         carList.add(car);
     }
 
-    public int findByInDexCar(int id) {
+    public int findByIndexCar(int id) {
         for (int i = 0; i < carList.size(); i++) {
             if (id == carList.get(i).getIdCar()) {
                 return i;
@@ -60,7 +60,7 @@ public class ManageCar {
                 check = true;
             }
         }
-        if (!check) System.out.println("Không tìm thấy tên xe !!!");
+        if (!check) System.out.println("\u001B[31m" +"Không tìm thấy tên xe !!!"+ "\u001B[0m");
     }
 
     public void displayCompanyCar(String company) {
@@ -71,11 +71,11 @@ public class ManageCar {
                 check = true;
             }
         }
-        if (!check) System.out.println("Hãng xe này chưa có !!!!");
+        if (!check) System.out.println("\u001B[31m" +"Hãng xe này chưa có !!!!"+ "\u001B[0m");
     }
 
     public void delete(int id) {
-        carList.remove(findByInDexCar(id));
+        carList.remove(findByIndexCar(id));
     }
 
     public void displayByPrice(int price, int price1) {
@@ -86,9 +86,16 @@ public class ManageCar {
                 check = true;
             }
         }
-        if (!check) System.out.println("Không tìm thấy xe trong khoảng phù hợp ");
+        if (!check) System.out.println("\u001B[31m" +"Không tìm thấy xe trong khoảng phù hợp "+ "\u001B[0m");
     }
-    public void edit(int id,Car car){
-        carList.set(findByInDexCar(id),car);
+    public void displayById(int id){
+        for (Car car:carList) {
+            if (car.getIdCar()==id){
+                System.out.println(car);
+            }
+        }
+    }
+    public void edit(int id, Car car) {
+        carList.set(findByIndexCar(id), car);
     }
 }
