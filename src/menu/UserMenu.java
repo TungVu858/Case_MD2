@@ -46,9 +46,7 @@ public class UserMenu {
         }
     }
 
-    public static void register() throws IOException {
-        ManageUser manageUser = new ManageUser();
-        ManageRole manageRole = new ManageRole();
+    public static void register(ManageUser manageUser,ManageRole manageRole) throws IOException {
         Scanner scc = new Scanner(System.in);
         String status = "1";
         System.out.println("Đăng kí ");

@@ -19,8 +19,7 @@ public class RoleMenu {
         System.out.print("Nhập lựa chọn : ");
     }
 
-    public static void addRole() throws IOException {
-        ManageRole manageRole = new ManageRole();
+    public static void addRole(ManageRole manageRole) throws IOException {
         Scanner scc = new Scanner(System.in);
         int idRole = Input.checkExceptionNumber("Nhập id Role : ");
         if (manageRole.findByIndexId(idRole) == -1) {

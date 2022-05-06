@@ -6,11 +6,9 @@ public class Car {
     private String companyCar;
     private int priceCar;
     private User user;
-    private static int autoNum = 1;
 
     public Car() {
     }
-
 
     public Car(int idCar, String nameCar, String companyCar, int priceCar, User user) {
         this.idCar = idCar;

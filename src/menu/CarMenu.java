@@ -34,39 +34,33 @@ public class CarMenu {
         System.out.print("Nhập lựa chọn : ");
     }
 
-    public static void menuCarDisplayAll() throws IOException {
-        ManageCar manageCar = new ManageCar();
+    public static void menuCarDisplayAll(ManageCar manageCar){
         System.out.println(Input.ANSI_BLUE + "Toàn bộ xe " + Input.ANSI_RESET);
         manageCar.displayAll();
     }
 
-    public static void menuCarDisplayNameCar() throws IOException {
+    public static void menuCarDisplayNameCar(ManageCar manageCar){
         Scanner scc = new Scanner(System.in);
-        ManageCar manageCar = new ManageCar();
         System.out.println(Input.ANSI_BLUE + "Nhập vào tên xe cần tìm " + Input.ANSI_RESET);
         String carName = scc.nextLine();
         manageCar.displayNameCar(carName);
     }
 
-    public static void menuCarDisplayCompanyCar() throws IOException {
+    public static void menuCarDisplayCompanyCar(ManageCar manageCar){
         Scanner scc = new Scanner(System.in);
-        ManageCar manageCar = new ManageCar();
         System.out.println(Input.ANSI_BLUE + "Nhập tên hãng xe cần tìm " + Input.ANSI_RESET);
         String carCompany = scc.nextLine();
         manageCar.displayCompanyCar(carCompany);
     }
 
-    public static void menuCarDisplayPriceCar() throws IOException {
-        ManageCar manageCar = new ManageCar();
+    public static void menuCarDisplayPriceCar(ManageCar manageCar){
         System.out.println(Input.ANSI_BLUE + "Tìm kiếm theo giá " + Input.ANSI_RESET);
         int priceCar = Input.checkExceptionNumber("Nhập giá tiền từ : ");
         int priceCar1 = Input.checkExceptionNumber("đến");
         manageCar.displayByPrice(priceCar, priceCar1);
     }
 
-    public static void menuCarAdd() throws IOException {
-        ManageCar manageCar = new ManageCar();
-        ManageUser manageUser = new ManageUser();
+    public static void menuCarAdd(ManageCar manageCar,ManageUser manageUser) throws IOException {
         Scanner scc = new Scanner(System.in);
         int idCar = Input.checkExceptionNumber("Nhập id xe : ");
         if (manageCar.findByIndexCar(idCar) == -1) {
@@ -92,8 +86,7 @@ public class CarMenu {
         } else System.out.println("\u001B[31m" + "Id xe đã có !!!" + "\u001B[0m");
     }
 
-    public static void menuCarDelete() throws IOException {
-        ManageCar manageCar = new ManageCar();
+    public static void menuCarDelete(ManageCar manageCar) throws IOException {
         Scanner scc = new Scanner(System.in);
         int idCar = Input.checkExceptionNumber("Nhập id xe cần xóa : ");
         if (manageCar.findByIndexCar(idCar) != -1) {
@@ -114,10 +107,8 @@ public class CarMenu {
         } else System.out.println("\u001B[31m" + "Không tìm thấy id xe !!" + "\u001B[0m");
     }
 
-    public static void menuCarEdit() throws IOException {
+    public static void menuCarEdit(ManageCar manageCar,ManageUser manageUser) throws IOException {
         Scanner scc = new Scanner(System.in);
-        ManageCar manageCar = new ManageCar();
-        ManageUser manageUser = new ManageUser();
         int idCar = Input.checkExceptionNumber("Nhập id xe cần sửa thông tin : ");
         if (manageCar.findByIndexCar(idCar) != -1) {
             while (true) {

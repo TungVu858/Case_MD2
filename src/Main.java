@@ -1,5 +1,6 @@
 
 import input.Input;
+import manage.ManageCar;
 import manage.ManageRole;
 import manage.ManageUser;
 import menu.CarMenu;
@@ -14,6 +15,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ManageUser manageUser = new ManageUser();
         ManageRole manageRole = new ManageRole();
+        ManageCar manageCar = new ManageCar();
         Scanner scc = new Scanner(System.in);
         Scanner scs = new Scanner(System.in);
         String username;
@@ -50,25 +52,25 @@ public class Main {
                                         }
                                         switch (choice_3) {
                                             case 1:
-                                                CarMenu.menuCarDisplayAll();
+                                                CarMenu.menuCarDisplayAll(manageCar);
                                                 break;
                                             case 2:
-                                                CarMenu.menuCarDisplayNameCar();
+                                                CarMenu.menuCarDisplayNameCar(manageCar);
                                                 break;
                                             case 3:
-                                                CarMenu.menuCarDisplayCompanyCar();
+                                                CarMenu.menuCarDisplayCompanyCar(manageCar);
                                                 break;
                                             case 4:
-                                                CarMenu.menuCarDisplayPriceCar();
+                                                CarMenu.menuCarDisplayPriceCar(manageCar);
                                                 break;
                                             case 5:
-                                                CarMenu.menuCarAdd();
+                                                CarMenu.menuCarAdd(manageCar,manageUser);
                                                 break;
                                             case 6:
-                                                CarMenu.menuCarDelete();
+                                                CarMenu.menuCarDelete(manageCar);
                                                 break;
                                             case 7:
-                                                CarMenu.menuCarEdit();
+                                                CarMenu.menuCarEdit(manageCar,manageUser);
                                                 break;
                                         }
                                     }
@@ -86,7 +88,7 @@ public class Main {
                                         choice_2 = Input.checkMenu2Op(scs, choice_2);
                                         switch (choice_2) {
                                             case 1:
-                                                RoleMenu.addRole();
+                                                RoleMenu.addRole(manageRole);
                                                 break;
                                             case 2:
                                                 RoleMenu.deleteRole(manageRole);
@@ -103,7 +105,7 @@ public class Main {
                         System.out.println("\u001B[31m" + "Bạn nhập sai tên đăng nhập hoặc mật khẩu!!" + "\u001B[0m");
                     break;
                 case 2:
-                    UserMenu.register();
+                    UserMenu.register(manageUser,manageRole);
                     break;
             }
         }
