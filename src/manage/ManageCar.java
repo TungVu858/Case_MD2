@@ -11,8 +11,8 @@ import java.util.List;
 public class ManageCar {
     List<Car> carList = new ArrayList<>();
 
-    public ManageCar() throws IOException {
-        carList = FileCarCSV.readFormFile(Path.PATH_CAR);
+    public ManageCar(ManageUser manageUser) throws IOException {
+        carList = FileCarCSV.readFormFile(Path.PATH_CAR,manageUser,ManageCarCompany.getInstance());
     }
 
     public List<Car> getCarList() {
@@ -60,18 +60,18 @@ public class ManageCar {
                 check = true;
             }
         }
-        if (!check) System.out.println("\u001B[31m" +"Không tìm thấy tên xe !!!"+ "\u001B[0m");
+        if (!check) System.out.println("\u001B[31m" + "Không tìm thấy tên xe !!!" + "\u001B[0m");
     }
 
     public void displayCompanyCar(String company) {
         boolean check = false;
         for (Car car : carList) {
-            if (car.getCompanyCar().equals(company)) {
+            if (car.getCompanyCar().getName().contains(company)) {
                 System.out.println(car);
                 check = true;
             }
         }
-        if (!check) System.out.println("\u001B[31m" +"Hãng xe này chưa có !!!!"+ "\u001B[0m");
+        if (!check) System.out.println("\u001B[31m" + "Hãng xe này chưa có !!!!" + "\u001B[0m");
     }
 
     public void delete(int id) {
@@ -81,20 +81,22 @@ public class ManageCar {
     public void displayByPrice(int price, int price1) {
         boolean check = false;
         for (Car car : carList) {
-            if (price < car.getPriceCar() && price1 > car.getPriceCar()) {
+            if (price <= car.getPriceCar() && price1 >= car.getPriceCar()) {
                 System.out.println(car);
                 check = true;
             }
         }
-        if (!check) System.out.println("\u001B[31m" +"Không tìm thấy xe trong khoảng phù hợp "+ "\u001B[0m");
+        if (!check) System.out.println("\u001B[31m" + "Không tìm thấy xe trong khoảng phù hợp " + "\u001B[0m");
     }
-    public void displayById(int id){
-        for (Car car:carList) {
-            if (car.getIdCar()==id){
+
+    public void displayById(int id) {
+        for (Car car : carList) {
+            if (car.getIdCar() == id) {
                 System.out.println(car);
             }
         }
     }
+
     public void edit(int id, Car car) {
         carList.set(findByIndexCar(id), car);
     }

@@ -1,10 +1,5 @@
 package menu;
 
-import manage.ManageUser;
-
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Menu {
     public static void mainMenu() {
         System.out.println("------Menu-------");

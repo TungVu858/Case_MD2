@@ -4,8 +4,10 @@ import file.FileCarCSV;
 import file.Path;
 import input.Input;
 import manage.ManageCar;
+import manage.ManageCarCompany;
 import manage.ManageUser;
 import model.Car;
+import model.CarCompany;
 import model.DetailValid;
 import model.User;
 
@@ -34,52 +36,52 @@ public class CarMenu {
         System.out.print("Nhập lựa chọn : ");
     }
 
-    public static void menuCarDisplayAll(ManageCar manageCar){
+    public static void menuCarDisplayAll(ManageCar manageCar) {
         System.out.println(Input.ANSI_BLUE + "Toàn bộ xe " + Input.ANSI_RESET);
         manageCar.displayAll();
     }
 
-    public static void menuCarDisplayNameCar(ManageCar manageCar){
+    public static void menuCarDisplayNameCar(ManageCar manageCar) {
         Scanner scc = new Scanner(System.in);
         System.out.println(Input.ANSI_BLUE + "Nhập vào tên xe cần tìm " + Input.ANSI_RESET);
         String carName = scc.nextLine();
         manageCar.displayNameCar(carName);
     }
 
-    public static void menuCarDisplayCompanyCar(ManageCar manageCar){
+    public static void menuCarDisplayCompanyCar(ManageCar manageCar) {
         Scanner scc = new Scanner(System.in);
+        System.out.println(Input.ANSI_BLUE + "Các hãng xe hiện có thể có : Ford,Ferrari,Toyota,Honda,Kia,Mazda,Chevrolet,Porsche,BMW,Mercedes" + Input.ANSI_RESET);
         System.out.println(Input.ANSI_BLUE + "Nhập tên hãng xe cần tìm " + Input.ANSI_RESET);
         String carCompany = scc.nextLine();
         manageCar.displayCompanyCar(carCompany);
     }
 
-    public static void menuCarDisplayPriceCar(ManageCar manageCar){
+    public static void menuCarDisplayPriceCar(ManageCar manageCar) {
         System.out.println(Input.ANSI_BLUE + "Tìm kiếm theo giá " + Input.ANSI_RESET);
         int priceCar = Input.checkExceptionNumber("Nhập giá tiền từ : ");
         int priceCar1 = Input.checkExceptionNumber("đến");
         manageCar.displayByPrice(priceCar, priceCar1);
     }
 
-    public static void menuCarAdd(ManageCar manageCar,ManageUser manageUser) throws IOException {
+    public static void menuCarAdd(ManageCar manageCar, ManageUser manageUser, ManageCarCompany manageCarCompany) throws IOException {
         Scanner scc = new Scanner(System.in);
+        Scanner scs = new Scanner(System.in);
         int idCar = Input.checkExceptionNumber("Nhập id xe : ");
         if (manageCar.findByIndexCar(idCar) == -1) {
             while (true) {
                 System.out.println("Nhập tên xe : ");
                 String carName = scc.nextLine();
                 if (Input.validate(new DetailValid(Input.CAR_NAME, Input.NOT_VALID_CAR_NAME), carName)) {
-                    while (true) {
-                        System.out.println("Nhập hãng xe : ");
-                        String carCompany = scc.nextLine();
-                        if (Input.validate(new DetailValid(Input.CAR_COMPANY, Input.NOT_VALID_CAR_NAME), carCompany)) {
-                            int priceCar = Input.checkExceptionNumber("Nhập giá tiền xe : ");
-                            User user = manageUser.findById(ManageUser.currentUser.getIdUsers());
-                            manageCar.add(new Car(idCar, carName, carCompany, priceCar, user));
-                            System.out.println(Input.ANSI_BLUE + "Bạn đã thêm thành công " + carName + Input.ANSI_RESET);
-                            FileCarCSV.writeToFile(Path.PATH_CAR, manageCar.getCarList());
-                            break;
-                        }
-                    }
+                    System.out.println("Nhập hãng xe : ");
+                    manageCarCompany.displayAllCompany();
+                    int carCompany = -1;
+                    carCompany = Input.checkMenu7Op(scs, carCompany);
+                    int priceCar = Input.checkExceptionNumber("Nhập giá tiền xe : ");
+                    User user = manageUser.findById(ManageUser.currentUser.getIdUsers());
+                    CarCompany car = ManageCarCompany.getInstance().findById(carCompany);
+                    manageCar.add(new Car(idCar, carName, car, priceCar, user));
+                    System.out.println(Input.ANSI_BLUE + "Bạn đã thêm thành công " + carName + Input.ANSI_RESET);
+                    FileCarCSV.writeToFile(Path.PATH_CAR, manageCar.getCarList());
                     break;
                 }
             }
@@ -107,8 +109,9 @@ public class CarMenu {
         } else System.out.println("\u001B[31m" + "Không tìm thấy id xe !!" + "\u001B[0m");
     }
 
-    public static void menuCarEdit(ManageCar manageCar,ManageUser manageUser) throws IOException {
+    public static void menuCarEdit(ManageCar manageCar, ManageUser manageUser,ManageCarCompany manageCarCompany) throws IOException {
         Scanner scc = new Scanner(System.in);
+        Scanner scs = new Scanner(System.in);
         int idCar = Input.checkExceptionNumber("Nhập id xe cần sửa thông tin : ");
         if (manageCar.findByIndexCar(idCar) != -1) {
             while (true) {
@@ -116,25 +119,23 @@ public class CarMenu {
                 System.out.println("Nhập tên xe : ");
                 String carName = scc.nextLine();
                 if (Input.validate(new DetailValid(Input.CAR_NAME, Input.NOT_VALID_CAR_NAME), carName)) {
+                    System.out.println("Nhập hãng xe : ");
+                    manageCarCompany.displayAllCompany();
+                    int carCompany = -1;
+                    carCompany = Input.checkMenu7Op(scs, carCompany);
+                    int priceCar = Input.checkExceptionNumber("Nhập giá xe : ");
+                    User user = manageUser.findById(ManageUser.currentUser.getIdUsers());
+                    CarCompany car = ManageCarCompany.getInstance().findById(carCompany);
                     while (true) {
-                        System.out.println("Nhập hãng xe : ");
-                        String carCompany = scc.nextLine();
-                        if (Input.validate(new DetailValid(Input.CAR_COMPANY, Input.NOT_VALID_CAR_NAME), carCompany)) {
-                            int priceCar = Input.checkExceptionNumber("Nhập giá xe : ");
-                            User user = manageUser.findById(ManageUser.currentUser.getIdUsers());
-                            while (true) {
-                                System.out.println(Input.ANSI_BLUE + "Bạn có xác nhận sửa hay không y/n" + Input.ANSI_RESET);
-                                String flag = scc.nextLine();
-                                if (Input.validate(new DetailValid(Input.ANSWER, Input.NOT_VALID_ANSWER), flag)) {
-                                    if (flag.equals("y") || flag.equals("Y")) {
-                                        manageCar.edit(idCar, new Car(idCar, carName, carCompany, priceCar, user));
-                                        System.out.println(Input.ANSI_BLUE + "Bạn đã sửa thành công " + carName + Input.ANSI_RESET);
-                                        FileCarCSV.writeToFile(Path.PATH_CAR, manageCar.getCarList());
-                                        break;
-                                    } else System.out.println("\u001B[31m" + "Xóa thất bại !!" + "\u001B[0m");
-                                    break;
-                                }
-                            }
+                        System.out.println(Input.ANSI_BLUE + "Bạn có xác nhận sửa hay không y/n" + Input.ANSI_RESET);
+                        String flag = scc.nextLine();
+                        if (Input.validate(new DetailValid(Input.ANSWER, Input.NOT_VALID_ANSWER), flag)) {
+                            if (flag.equals("y") || flag.equals("Y")) {
+                                manageCar.edit(idCar, new Car(idCar, carName, car, priceCar, user));
+                                System.out.println(Input.ANSI_BLUE + "Bạn đã sửa thành công " + carName + Input.ANSI_RESET);
+                                FileCarCSV.writeToFile(Path.PATH_CAR, manageCar.getCarList());
+                                break;
+                            } else System.out.println("\u001B[31m" + "Xóa thất bại !!" + "\u001B[0m");
                             break;
                         }
                     }

@@ -1,6 +1,7 @@
 
 import input.Input;
 import manage.ManageCar;
+import manage.ManageCarCompany;
 import manage.ManageRole;
 import manage.ManageUser;
 import menu.CarMenu;
@@ -15,7 +16,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ManageUser manageUser = new ManageUser();
         ManageRole manageRole = new ManageRole();
-        ManageCar manageCar = new ManageCar();
+        ManageCarCompany manageCarCompany = new ManageCarCompany();
+        ManageCar manageCar = new ManageCar(manageUser);
         Scanner scc = new Scanner(System.in);
         Scanner scs = new Scanner(System.in);
         String username;
@@ -64,13 +66,13 @@ public class Main {
                                                 CarMenu.menuCarDisplayPriceCar(manageCar);
                                                 break;
                                             case 5:
-                                                CarMenu.menuCarAdd(manageCar,manageUser);
+                                                CarMenu.menuCarAdd(manageCar,manageUser,manageCarCompany);
                                                 break;
                                             case 6:
                                                 CarMenu.menuCarDelete(manageCar);
                                                 break;
                                             case 7:
-                                                CarMenu.menuCarEdit(manageCar,manageUser);
+                                                CarMenu.menuCarEdit(manageCar,manageUser,manageCarCompany);
                                                 break;
                                         }
                                     }

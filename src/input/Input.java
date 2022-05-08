@@ -92,10 +92,13 @@ public class Input {
             try {
                 System.out.println(message);
                 choice = scs.nextInt();
+                if (choice < 0) throw new Exception();
                 check = true;
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
                 System.out.println(ANSI_RED + "Chỉ được nhập số !!!!!" + ANSI_RESET);
                 scs.nextLine();
+            } catch (Exception e) {
+                System.out.println(ANSI_RED + "Không được nhập số nhỏ hơn 0" + ANSI_RESET);
             }
         }
         return choice;
