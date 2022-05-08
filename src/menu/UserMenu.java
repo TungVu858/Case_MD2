@@ -67,7 +67,7 @@ public class UserMenu {
                                     if (Input.validate(new DetailValid(Input.USER_PASS, Input.NOT_VALID_USER_PASS), rePass)) {
                                         if (pass.equals(rePass)) {
                                             manageRole.displayAll();
-                                            int idRole = Input.checkExceptionNumber("Nhập vào id Role : ");
+                                            int idRole = Input.checkExceptionNumberIdUser("Nhập vào id Role : ");
                                             Role role = manageRole.findById(idRole);
                                             manageUser.register(new User(id, username, pass, status, role));
                                             System.out.println(Input.ANSI_BLUE + "Bạn đã tạo tài khoản thành công!!" + Input.ANSI_RESET);

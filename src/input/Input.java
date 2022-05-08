@@ -104,6 +104,46 @@ public class Input {
         return choice;
     }
 
+    public static int checkExceptionNumberIdUser(String message) {
+        int choice = -1;
+        Scanner scs = new Scanner(System.in);
+        boolean check = false;
+        while (!check) {
+            try {
+                System.out.println(message);
+                choice = scs.nextInt();
+                if (choice < 1 || choice > 3) throw new Exception();
+                check = true;
+            } catch (InputMismatchException e) {
+                System.out.println(ANSI_RED + "Chỉ được nhập số !!!!!" + ANSI_RESET);
+                scs.nextLine();
+            } catch (Exception e) {
+                System.out.println(ANSI_RED + "Chỉ được nhập từ 1-->3" + ANSI_RESET);
+            }
+        }
+        return choice;
+    }
+
+    public static int checkExceptionNumberIdCompany(String message) {
+        int choice = -1;
+        Scanner scs = new Scanner(System.in);
+        boolean check = false;
+        while (!check) {
+            try {
+                System.out.println(message);
+                choice = scs.nextInt();
+                if (choice < 1 || choice > 7) throw new Exception();
+                check = true;
+            } catch (InputMismatchException e) {
+                System.out.println(ANSI_RED + "Chỉ được nhập số !!!!!" + ANSI_RESET);
+                scs.nextLine();
+            } catch (Exception e) {
+                System.out.println(ANSI_RED + "Chỉ được nhập từ 1 -->7 " + ANSI_RESET);
+            }
+        }
+        return choice;
+    }
+
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";

@@ -60,7 +60,7 @@ public class Main {
                                                 CarMenu.menuCarDisplayNameCar(manageCar);
                                                 break;
                                             case 3:
-                                                CarMenu.menuCarDisplayCompanyCar(manageCar);
+                                                CarMenu.menuCarDisplayCompanyCar(manageCar,manageCarCompany);
                                                 break;
                                             case 4:
                                                 CarMenu.menuCarDisplayPriceCar(manageCar);
@@ -74,6 +74,8 @@ public class Main {
                                             case 7:
                                                 CarMenu.menuCarEdit(manageCar,manageUser,manageCarCompany);
                                                 break;
+//                                            case 8:
+//                                                CarMenu.addCompanyCar(manageCarCompany);
                                         }
                                     }
                                     break;
