@@ -19,9 +19,16 @@ public class UserMenu {
         System.out.println("1. Vào trang quản lý  ");
         System.out.println("2. Xem thông tin tài khoản  ");
         System.out.println("3. Đổi mật khẩu ");
-        if (ManageUser.currentUser.getRole().getNameRole().equals("Admin")) {
-            System.out.println("4. Thêm , xóa role");
-        }
+        System.out.println("0. Logout");
+        System.out.print("Nhập lựa chọn : ");
+    }
+
+    public static void mainLoginAdmin() {
+        System.out.println("------Menu Login-------");
+        System.out.println("1. Vào trang quản lý  ");
+        System.out.println("2. Xem thông tin tài khoản  ");
+        System.out.println("3. Đổi mật khẩu ");
+        System.out.println("4. Thêm , xóa role");
         System.out.println("0. Logout");
         System.out.print("Nhập lựa chọn : ");
     }
@@ -67,7 +74,7 @@ public class UserMenu {
                                     if (Input.validate(new DetailValid(Input.USER_PASS, Input.NOT_VALID_USER_PASS), rePass)) {
                                         if (pass.equals(rePass)) {
                                             manageRole.displayAll();
-                                            int idRole = Input.checkExceptionNumberIdUser("Nhập vào id Role : ");
+                                            int idRole = Input.checkExceptionNumberIdUser("Nhập vào id Role : ", manageRole);
                                             Role role = manageRole.findById(idRole);
                                             manageUser.register(new User(id, username, pass, status, role));
                                             System.out.println(Input.ANSI_BLUE + "Bạn đã tạo tài khoản thành công!!" + Input.ANSI_RESET);

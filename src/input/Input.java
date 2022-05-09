@@ -1,5 +1,7 @@
 package input;
 
+import manage.ManageCarCompany;
+import manage.ManageRole;
 import model.DetailValid;
 
 import java.util.InputMismatchException;
@@ -13,7 +15,6 @@ public class Input {
     public static final String CAR_NAME = "^[A-Z]+[\\w]+$";
     public static final String CAR_COMPANY = "^[A-Z]+[\\w]{2,10}$";
     public static final String ROLE_NAME = "^[Admin|Manage|Custom]+$";
-    public static final String ROLE_DESCRIPTION = "^[Chủ|Khách|QuảnLý]+$";
     public static final String ANSWER = "^[y|n|Y|N]{1}$";
     public static final String NOT_VALID_USER_NAME = "\u001B[31m" + "Bạn cần nhập kí tự đầu tiên là chữ và từ 5 đến 18 kí tự " + "\u001B[0m";
     public static final String NOT_VALID_USER_PASS = "\u001B[31m" + "Bạn cần nhập ít nhất 1 số,kí tự đặc biệt,kí tự viết hoa và từ 8 đến 20 kí tự " + "\u001B[0m";
@@ -22,8 +23,7 @@ public class Input {
     public static final String CHECK_PASS_DUPE = "\u001B[31m" + "Nhập 2 mật khẩu phải trùng nhau !!" + "\u001B[0m";
     public static final String CHECK_USER_NAME_DUPE = "\u001B[31m" + "Tài khoản đã tồn tại !!!" + "\u001B[0m";
     public static final String CHECK_USER_ID_DUPE = "\u001B[31m" + "Id tài khoản đã tồn tại !!!" + "\u001B[0m";
-    public static final String NOT_VALID_ROLE_NAME = "\u001B[31m" + "Chỉ có 3 role Admin,Manage,Custom" + "\u001B[0m";
-    public static final String NOT_VALID_ROLE_DESCRIPTION = "\u001B[31m" + "Chỉ có 3 mô tả Chủ,Khách,QuảnLý" + "\u001B[0m";
+
 
     public static boolean validate(DetailValid detailValid, String string) {
         Pattern pattern = Pattern.compile(detailValid.getRegex());
@@ -45,26 +45,38 @@ public class Input {
     public static int checkMenu2Op(Scanner scs, int choice) {
         try {
             choice = scs.nextInt();
-            if (choice > 2 || choice < 0) throw new Exception();
+            if (choice > 2 || choice < 0) throw new NumberFormatException();
         } catch (InputMismatchException e) {
             System.out.println(ANSI_RED + "Không được nhập chữ !!!" + ANSI_RESET);
             scs.nextLine();
             choice = -1;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println(ANSI_RED + "Chỉ được nhập số từ 0 --> 2" + ANSI_RESET);
         }
         return choice;
     }
-
-    public static int checkMenu4Op(Scanner scs, int choice) {
+    public static int checkMenu3Op(Scanner scs, int choice) {
         try {
             choice = scs.nextInt();
-            if (choice > 4 || choice < 0) throw new Exception();
+            if (choice > 3 || choice < 0) throw new NumberFormatException();
         } catch (InputMismatchException e) {
             System.out.println(ANSI_RED + "Không được nhập chữ !!!" + ANSI_RESET);
             scs.nextLine();
             choice = -1;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
+            System.out.println(ANSI_RED + "Chỉ được nhập số từ 0 --> 3" + ANSI_RESET);
+        }
+        return choice;
+    }
+    public static int checkMenu4Op(Scanner scs, int choice) {
+        try {
+            choice = scs.nextInt();
+            if (choice > 4 || choice < 0) throw new NumberFormatException();
+        } catch (InputMismatchException e) {
+            System.out.println(ANSI_RED + "Không được nhập chữ !!!" + ANSI_RESET);
+            scs.nextLine();
+            choice = -1;
+        } catch (NumberFormatException e) {
             System.out.println(ANSI_RED + "Chỉ được nhập số từ 0 --> 4" + ANSI_RESET);
         }
         return choice;
@@ -73,17 +85,29 @@ public class Input {
     public static int checkMenu7Op(Scanner scs, int choice) {
         try {
             choice = scs.nextInt();
-            if (choice > 7 || choice < 0) throw new Exception();
+            if (choice > 7 || choice < 0) throw new NumberFormatException();
         } catch (InputMismatchException e) {
             System.out.println(ANSI_RED + "Không được nhập chữ !!!" + ANSI_RESET);
             scs.nextLine();
             choice = -1;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println(ANSI_RED + "Chỉ được nhập số từ 0 --> 7" + ANSI_RESET);
         }
         return choice;
     }
-
+    public static int checkMenu9Op(Scanner scs, int choice) {
+        try {
+            choice = scs.nextInt();
+            if (choice > 8 || choice < 0) throw new NumberFormatException();
+        } catch (InputMismatchException e) {
+            System.out.println(ANSI_RED + "Không được nhập chữ !!!" + ANSI_RESET);
+            scs.nextLine();
+            choice = -1;
+        } catch (NumberFormatException e) {
+            System.out.println(ANSI_RED + "Chỉ được nhập số từ 0 --> 8" + ANSI_RESET);
+        }
+        return choice;
+    }
     public static int checkExceptionNumber(String message) {
         int choice = -1;
         Scanner scs = new Scanner(System.in);
@@ -104,7 +128,8 @@ public class Input {
         return choice;
     }
 
-    public static int checkExceptionNumberIdUser(String message) {
+
+    public static int checkExceptionNumberIdUser(String message, ManageRole manageRole) {
         int choice = -1;
         Scanner scs = new Scanner(System.in);
         boolean check = false;
@@ -112,19 +137,19 @@ public class Input {
             try {
                 System.out.println(message);
                 choice = scs.nextInt();
-                if (choice < 1 || choice > 3) throw new Exception();
+                if (choice < 1 || choice > manageRole.getRoles().size()) throw new NumberFormatException();
                 check = true;
             } catch (InputMismatchException e) {
                 System.out.println(ANSI_RED + "Chỉ được nhập số !!!!!" + ANSI_RESET);
                 scs.nextLine();
-            } catch (Exception e) {
-                System.out.println(ANSI_RED + "Chỉ được nhập từ 1-->3" + ANSI_RESET);
+            } catch (NumberFormatException e) {
+                System.out.println(ANSI_RED + "Chỉ được nhập từ 1-->" + manageRole.getRoles().size() + ANSI_RESET);
             }
         }
         return choice;
     }
 
-    public static int checkExceptionNumberIdCompany(String message) {
+    public static int checkExceptionNumberIdCompany(String message, ManageCarCompany manageCarCompany) {
         int choice = -1;
         Scanner scs = new Scanner(System.in);
         boolean check = false;
@@ -132,13 +157,13 @@ public class Input {
             try {
                 System.out.println(message);
                 choice = scs.nextInt();
-                if (choice < 1 || choice > 7) throw new Exception();
+                if (choice < 1 || choice > manageCarCompany.getCarCompanyList().size()) throw new NumberFormatException();
                 check = true;
             } catch (InputMismatchException e) {
                 System.out.println(ANSI_RED + "Chỉ được nhập số !!!!!" + ANSI_RESET);
                 scs.nextLine();
-            } catch (Exception e) {
-                System.out.println(ANSI_RED + "Chỉ được nhập từ 1 -->7 " + ANSI_RESET);
+            } catch (NumberFormatException e) {
+                System.out.println(ANSI_RED + "Chỉ được nhập từ 1 --> " + manageCarCompany.getCarCompanyList().size() + ANSI_RESET);
             }
         }
         return choice;

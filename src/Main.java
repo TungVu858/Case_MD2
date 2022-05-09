@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         ManageUser manageUser = new ManageUser();
         ManageRole manageRole = new ManageRole();
@@ -38,14 +39,24 @@ public class Main {
                         System.out.println(manageUser.displayUserName(username));
                         int choice_1 = -1;
                         while (choice_1 != 0) {
-                            UserMenu.mainLogin();
-                            choice_1 = Input.checkMenu4Op(scs, choice_1);
+                            if (ManageUser.currentUser.getRole().getNameRole().equals("Admin")) {
+                                UserMenu.mainLoginAdmin();
+                                choice_1 = Input.checkMenu4Op(scs, choice_1);
+                            } else {
+                                UserMenu.mainLogin();
+                                choice_1 = Input.checkMenu3Op(scs, choice_1);
+                            }
                             switch (choice_1) {
                                 case 1:
                                     int choice_3 = -1;
                                     while (choice_3 != 0) {
                                         CarMenu.menuCar();
-                                        if (ManageUser.currentUser.getRole().getNameRole().equals("Admin") || ManageUser.currentUser.getRole().getNameRole().equals("Manage")) {
+                                        boolean admin = ManageUser.currentUser.getRole().getNameRole().equals("Admin");
+                                        boolean admin_manage = ManageUser.currentUser.getRole().getNameRole().equals("Admin") || ManageUser.currentUser.getRole().getNameRole().equals("Manage");
+                                        if (admin) {
+                                            CarMenu.menuCarTypeRoleAdmin();
+                                            choice_3 = Input.checkMenu9Op(scs, choice_3);
+                                        } else if (admin_manage) {
                                             CarMenu.menuCarTypeRole();
                                             choice_3 = Input.checkMenu7Op(scs, choice_3);
                                         } else {
@@ -60,22 +71,28 @@ public class Main {
                                                 CarMenu.menuCarDisplayNameCar(manageCar);
                                                 break;
                                             case 3:
-                                                CarMenu.menuCarDisplayCompanyCar(manageCar,manageCarCompany);
+                                                CarMenu.menuCarDisplayCompanyCar(manageCar);
                                                 break;
                                             case 4:
                                                 CarMenu.menuCarDisplayPriceCar(manageCar);
                                                 break;
                                             case 5:
-                                                CarMenu.menuCarAdd(manageCar,manageUser,manageCarCompany);
+                                                if (admin_manage)
+                                                    CarMenu.menuCarAdd(manageCar, manageUser, manageCarCompany);
                                                 break;
                                             case 6:
-                                                CarMenu.menuCarDelete(manageCar);
+                                                if (admin_manage)
+                                                    CarMenu.menuCarDelete(manageCar);
                                                 break;
                                             case 7:
-                                                CarMenu.menuCarEdit(manageCar,manageUser,manageCarCompany);
+                                                if (admin_manage)
+                                                    CarMenu.menuCarEdit(manageCar, manageUser, manageCarCompany);
                                                 break;
-//                                            case 8:
-//                                                CarMenu.addCompanyCar(manageCarCompany);
+                                            case 8:
+                                                if (admin) {
+                                                    CarMenu.addCompanyCar(manageCarCompany);
+                                                }
+                                                break;
                                         }
                                     }
                                     break;
@@ -86,17 +103,19 @@ public class Main {
                                     UserMenu.changePass(manageUser);
                                     break;
                                 case 4:
-                                    int choice_2 = -1;
-                                    while (choice_2 != 0) {
-                                        RoleMenu.manageRole();
-                                        choice_2 = Input.checkMenu2Op(scs, choice_2);
-                                        switch (choice_2) {
-                                            case 1:
-                                                RoleMenu.addRole(manageRole);
-                                                break;
-                                            case 2:
-                                                RoleMenu.deleteRole(manageRole);
-                                                break;
+                                    if (ManageUser.currentUser.getRole().getNameRole().equals("Admin")) {
+                                        int choice_2 = -1;
+                                        while (choice_2 != 0) {
+                                            RoleMenu.manageRole();
+                                            choice_2 = Input.checkMenu2Op(scs, choice_2);
+                                            switch (choice_2) {
+                                                case 1:
+                                                    RoleMenu.addRole(manageRole);
+                                                    break;
+                                                case 2:
+                                                    RoleMenu.deleteRole(manageRole);
+                                                    break;
+                                            }
                                         }
                                     }
                                     break;
@@ -109,7 +128,7 @@ public class Main {
                         System.out.println("\u001B[31m" + "Bạn nhập sai tên đăng nhập hoặc mật khẩu!!" + "\u001B[0m");
                     break;
                 case 2:
-                    UserMenu.register(manageUser,manageRole);
+                    UserMenu.register(manageUser, manageRole);
                     break;
             }
         }

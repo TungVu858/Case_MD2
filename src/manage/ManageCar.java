@@ -43,7 +43,6 @@ public class ManageCar {
     }
 
     public int findByNameCar(String name) {
-        boolean check = false;
         for (int i = 0; i < carList.size(); i++) {
             if (carList.get(i).getNameCar().contains(name)) {
                 return i;
@@ -101,3 +100,4 @@ public class ManageCar {
         carList.set(findByIndexCar(id), car);
     }
 }
+
