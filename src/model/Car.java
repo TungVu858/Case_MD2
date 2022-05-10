@@ -2,16 +2,16 @@ package model;
 
 public class Car {
     private int idCar;
-    private String nameCar;
+    private CarName carName;
     private CarCompany companyCar;
     private int priceCar;
     private User user;
     public Car() {
     }
 
-    public Car(int idCar, String nameCar, CarCompany companyCar, int priceCar, User user) {
+    public Car(int idCar, CarName nameCar, CarCompany companyCar, int priceCar, User user) {
         this.idCar = idCar;
-        this.nameCar = nameCar;
+        this.carName = nameCar;
         this.companyCar = companyCar;
         this.priceCar = priceCar;
         this.user = user;
@@ -25,12 +25,12 @@ public class Car {
         this.idCar = idCar;
     }
 
-    public String getNameCar() {
-        return nameCar;
+    public CarName getNameCar() {
+        return carName;
     }
 
-    public void setNameCar(String nameCar) {
-        this.nameCar = nameCar;
+    public void setNameCar(CarName nameCar) {
+        this.carName = nameCar;
     }
 
     public CarCompany getCompanyCar() {
@@ -61,7 +61,7 @@ public class Car {
     public String toString() {
         return "Car{" +
                 "idCar=" + idCar +
-                ", nameCar='" + nameCar + '\'' +
+                ", nameCar='" + carName.getName() + '\'' +
                 ", companyCar='" + companyCar.getName() + '\'' +
                 ", priceCar=" + priceCar +
                 ", useradd='" + user.getUserName() + '\'' +

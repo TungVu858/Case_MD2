@@ -12,7 +12,7 @@ public class ManageCar {
     List<Car> carList = new ArrayList<>();
 
     public ManageCar(ManageUser manageUser) throws IOException {
-        carList = FileCarCSV.readFormFile(Path.PATH_CAR,manageUser,ManageCarCompany.getInstance());
+        carList = FileCarCSV.readFormFile(Path.PATH_CAR,manageUser,ManageCarCompany.getInstance(),ManageCarName.getInstance());
     }
 
     public List<Car> getCarList() {
@@ -44,7 +44,7 @@ public class ManageCar {
 
     public int findByNameCar(String name) {
         for (int i = 0; i < carList.size(); i++) {
-            if (carList.get(i).getNameCar().contains(name)) {
+            if (carList.get(i).getNameCar().getName().contains(name)) {
                 return i;
             }
         }
@@ -54,7 +54,7 @@ public class ManageCar {
     public void displayNameCar(String name) {
         boolean check = false;
         for (Car car : carList) {
-            if (car.getNameCar().contains(name)) {
+            if (car.getNameCar().getName().contains(name)) {
                 System.out.println(car);
                 check = true;
             }
@@ -72,7 +72,55 @@ public class ManageCar {
         }
         if (!check) System.out.println("\u001B[31m" + "Hãng xe này chưa có !!!!" + "\u001B[0m");
     }
-
+    public void displayCarFord(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("Ford")){
+                System.out.println(car);
+            }
+        }
+    }
+    public void displayCarToyota(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("Toyota")){
+                System.out.println(car);
+            }
+        }
+    }
+    public void displayCarFerrari(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("Ferrari")){
+                System.out.println(car);
+            }
+        }
+    }
+    public void displayCarHonda(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("Honda")){
+                System.out.println(car);
+            }
+        }
+    }
+    public void displayCarKia(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("Kia")){
+                System.out.println(car);
+            }
+        }
+    }
+    public void displayCarMazda(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("Mazda")){
+                System.out.println(car);
+            }
+        }
+    }
+    public void displayCarBMW(){
+        for (Car car:carList) {
+            if (car.getCompanyCar().getName().contains("BMW")){
+                System.out.println(car);
+            }
+        }
+    }
     public void delete(int id) {
         carList.remove(findByIndexCar(id));
     }

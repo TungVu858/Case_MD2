@@ -1,9 +1,6 @@
 
 import input.Input;
-import manage.ManageCar;
-import manage.ManageCarCompany;
-import manage.ManageRole;
-import manage.ManageUser;
+import manage.*;
 import menu.CarMenu;
 import menu.Menu;
 import menu.RoleMenu;
@@ -19,6 +16,7 @@ public class Main {
         ManageRole manageRole = new ManageRole();
         ManageCarCompany manageCarCompany = new ManageCarCompany();
         ManageCar manageCar = new ManageCar(manageUser);
+        ManageCarName manageCarName = new ManageCarName();
         Scanner scc = new Scanner(System.in);
         Scanner scs = new Scanner(System.in);
         String username;
@@ -71,7 +69,7 @@ public class Main {
                                                 CarMenu.menuCarDisplayNameCar(manageCar);
                                                 break;
                                             case 3:
-                                                CarMenu.menuCarDisplayCompanyCar(manageCar);
+                                                CarMenu.menuCarDisplayCompanyCar(manageCarCompany,manageCar);
                                                 break;
                                             case 4:
                                                 CarMenu.menuCarDisplayPriceCar(manageCar);
@@ -86,7 +84,7 @@ public class Main {
                                                 break;
                                             case 7:
                                                 if (admin_manage)
-                                                    CarMenu.menuCarEdit(manageCar, manageUser, manageCarCompany);
+                                                    CarMenu.menuCarEdit(manageCar, manageUser, manageCarCompany,manageCarName);
                                                 break;
                                             case 8:
                                                 if (admin) {
