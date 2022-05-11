@@ -1,4 +1,7 @@
 
+import controller.CarController;
+import controller.RoleController;
+import controller.UserController;
 import input.Input;
 import manage.*;
 import menu.CarMenu;
@@ -63,32 +66,32 @@ public class Main {
                                         }
                                         switch (choice_3) {
                                             case 1:
-                                                CarMenu.menuCarDisplayAll(manageCar);
+                                                CarController.menuCarDisplayAll(manageCar);
                                                 break;
                                             case 2:
-                                                CarMenu.menuCarDisplayNameCar(manageCar);
+                                                CarController.menuCarDisplayNameCar(manageCar);
                                                 break;
                                             case 3:
-                                                CarMenu.menuCarDisplayCompanyCar(manageCarCompany,manageCar);
+                                                CarController.menuCarDisplayCompanyCar(manageCarCompany,manageCar);
                                                 break;
                                             case 4:
-                                                CarMenu.menuCarDisplayPriceCar(manageCar);
+                                                CarController.menuCarDisplayPriceCar(manageCar);
                                                 break;
                                             case 5:
                                                 if (admin_manage)
-                                                    CarMenu.menuCarAdd(manageCar, manageUser, manageCarCompany);
+                                                    CarController.menuCarAdd(manageCar, manageUser, manageCarCompany);
                                                 break;
                                             case 6:
                                                 if (admin_manage)
-                                                    CarMenu.menuCarDelete(manageCar);
+                                                    CarController.menuCarDelete(manageCar);
                                                 break;
                                             case 7:
                                                 if (admin_manage)
-                                                    CarMenu.menuCarEdit(manageCar, manageUser, manageCarCompany,manageCarName);
+                                                    CarController.menuCarEdit(manageCar, manageUser, manageCarCompany,manageCarName);
                                                 break;
                                             case 8:
                                                 if (admin) {
-                                                    CarMenu.addCompanyCar(manageCarCompany);
+                                                    CarController.addCompanyCar(manageCarCompany);
                                                 }
                                                 break;
                                         }
@@ -98,7 +101,7 @@ public class Main {
                                     UserMenu.information();
                                     break;
                                 case 3:
-                                    UserMenu.changePass(manageUser);
+                                    UserController.changePass(manageUser);
                                     break;
                                 case 4:
                                     if (ManageUser.currentUser.getRole().getNameRole().equals("Admin")) {
@@ -108,10 +111,10 @@ public class Main {
                                             choice_2 = Input.checkMenu2Op(scs, choice_2);
                                             switch (choice_2) {
                                                 case 1:
-                                                    RoleMenu.addRole(manageRole);
+                                                    RoleController.addRole(manageRole);
                                                     break;
                                                 case 2:
-                                                    RoleMenu.deleteRole(manageRole);
+                                                    RoleController.deleteRole(manageRole);
                                                     break;
                                             }
                                         }
@@ -126,7 +129,7 @@ public class Main {
                         System.out.println("\u001B[31m" + "Bạn nhập sai tên đăng nhập hoặc mật khẩu!!" + "\u001B[0m");
                     break;
                 case 2:
-                    UserMenu.register(manageUser, manageRole);
+                    UserController.register(manageUser, manageRole);
                     break;
             }
         }

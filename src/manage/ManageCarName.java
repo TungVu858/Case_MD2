@@ -19,7 +19,7 @@ public class ManageCarName {
     }
 
     public ManageCarName() throws IOException {
-        carNameList = FileCarNameCSV.readFromFile("Case_MD2/carname.csv");
+        carNameList = FileCarNameCSV.readFromFile("carname.csv");
     }
 
     public List<CarName> getCarNameList() {
