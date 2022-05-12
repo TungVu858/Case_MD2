@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageCarCompany {
-    List<CarCompany> carCompanyList = new ArrayList<>();
+    private List<CarCompany> carCompanyList = new ArrayList<>();
     private static ManageCarCompany instance = null;
     public ManageCarCompany() throws IOException {
         carCompanyList = FileCarCompany.readFromFile(Path.PATH_CAR_COMPANY);

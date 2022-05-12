@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageCarName {
-    List<CarName> carNameList = new ArrayList<>();
+    private List<CarName> carNameList = new ArrayList<>();
     private static ManageCarName instance = null;
 
     public static ManageCarName getInstance() throws IOException {

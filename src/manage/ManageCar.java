@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageCar {
-    List<Car> carList = new ArrayList<>();
+    private List<Car> carList = new ArrayList<>();
 
     public ManageCar(ManageUser manageUser) throws IOException {
         carList = FileCarCSV.readFormFile(Path.PATH_CAR,manageUser,ManageCarCompany.getInstance(),ManageCarName.getInstance());

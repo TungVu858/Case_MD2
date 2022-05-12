@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageRole {
-    List<Role> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     public ManageRole() throws IOException {
         roles = FileRoleCSV.readFromFile(Path.PATH_ROLE);

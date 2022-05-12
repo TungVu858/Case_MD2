@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManageUser {
-    List<User> userList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
     public static User currentUser = new User();
 
     public ManageUser() throws IOException {
